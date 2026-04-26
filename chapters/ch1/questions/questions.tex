@@ -1,0 +1,219 @@
+
+\documentclass[10pt, a4paper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric,
+  decorations.pathmorphing, patterns, automata, trees, fit, backgrounds, matrix}
+
+\tcbuselibrary{breakable}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist{nosep, leftmargin=1.5em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{{\small MATH 999 \quad Chapter 1 Practice Problems}}
+\rhead{{\small Fall 2099}}
+\cfoot{\thepage}
+
+\newtcolorbox{qeasy}[1][]{colback=green!5, colframe=green!50!black,
+  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
+\newtcolorbox{qmedium}[1][]{colback=yellow!8, colframe=orange!70!black,
+  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
+\newtcolorbox{qhard}[1][]{colback=red!4, colframe=red!50!black,
+  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
+\newtcolorbox{solution}[1][]{colback=gray!4, colframe=gray!60!black,
+  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\eps}{\varepsilon}
+
+\title{\textbf{MATH 999: Introduction to Widget Theory}\\[4pt]
+  {\Large Chapter 1 Practice Problems}}
+\author{{\small Exemplar University \quad Fall 2099}}
+\date{}
+
+\begin{document}
+\maketitle
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════
+% PROBLEMS
+% ═══════════════════════════════════════════════════════════════════════
+
+\section*{Problems}
+
+\begin{qeasy}[Q1]
+Compute $\|w\|_W$ for $w = (2, 0, 6, 0, 0, \ldots)$.
+\end{qeasy}
+
+\begin{qeasy}[Q2]
+Let $w = (1, 1, 1, \ldots)$. Compute $\|w\|_W$.
+\end{qeasy}
+
+\begin{qeasy}[Q3]
+True or false: $\|w\|_W = 0$ implies $w = (0, 0, 0, \ldots)$.
+Justify.
+\end{qeasy}
+
+\begin{qmedium}[Q4]
+Let $w^{(n)}_k = n/(n+k)$. Show $\|w^{(n)}\|_W \le 1$ for
+all $n$ and find $\lim_{n \to \infty} \|w^{(n)}\|_W$.
+\end{qmedium}
+
+\begin{qmedium}[Q5]
+Prove $\|u + v\|_W \le \|u\|_W + \|v\|_W$.
+\end{qmedium}
+
+\begin{qmedium}[Q6]
+State the Widget Approximation Theorem. What are its hypotheses
+and conclusions?
+\end{qmedium}
+
+\begin{qmedium}[Q7]
+Give an example of a bounded widget sequence that does not
+converge but has a convergent subsequence.
+\end{qmedium}
+
+\begin{qhard}[Q8]
+Prove the Tail Bound Lemma: if $\|w\|_W \le M$, then
+$\sup_{k > K} |w_k| \cdot 2^{-k} \le M$ for all $K \ge 1$.
+\end{qhard}
+
+\begin{qhard}[Q9]
+Prove: $\|w^{(n)} - w\|_W \to 0$ implies $w^{(n)}_k \to w_k$
+for every $k$. Is the converse true?
+\end{qhard}
+
+\begin{qhard}[Q10]
+Prove the Widget Approximation Theorem.
+\end{qhard}
+
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════
+% SOLUTIONS
+% ═══════════════════════════════════════════════════════════════════════
+
+\section*{Solutions}
+
+\begin{solution}[Q1]
+$w = (2, 0, 6, 0, 0, \ldots)$.
+\begin{align*}
+  |w_1| \cdot 2^{-1} &= 1, \\
+  |w_3| \cdot 2^{-3} &= 6/8 = 3/4.
+\end{align*}
+All other terms are 0. So $\|w\|_W = \boxed{1}$.
+\end{solution}
+
+\begin{solution}[Q2]
+$|w_k| \cdot 2^{-k} = 2^{-k}$, maximized at $k = 1$.
+
+$\|w\|_W = 2^{-1} = \boxed{1/2}$.
+\end{solution}
+
+\begin{solution}[Q3]
+True. $\|w\|_W = 0$ means $|w_k| \cdot 2^{-k} \le 0$ for all $k$.
+Since $2^{-k} > 0$, this forces $w_k = 0$ for all $k$.
+\end{solution}
+
+\begin{solution}[Q4]
+$\frac{n}{n+k} \cdot 2^{-k} \le 2^{-k} \le 1/2$ for all $k \ge 1$.
+So $\|w^{(n)}\|_W \le 1$.
+
+At $k = 1$: $\frac{n}{n+1} \cdot \frac{1}{2} \to \frac{1}{2}$.
+For $k \ge 2$: the terms $\to 2^{-k} \le 1/4 < 1/2$.
+
+$\lim \|w^{(n)}\|_W = \boxed{1/2}$.
+\end{solution}
+
+\begin{solution}[Q5]
+For each $k$:
+\[
+  |u_k + v_k| \cdot 2^{-k} \le (|u_k| + |v_k|) \cdot 2^{-k}
+  \le \|u\|_W + \|v\|_W.
+\]
+Taking the sup over $k$ gives $\|u + v\|_W \le \|u\|_W + \|v\|_W$. $\qed$
+\end{solution}
+
+\begin{solution}[Q6]
+\textit{Statement:} Let $(w^{(n)})$ satisfy $\|w^{(n)}\|_W \le M$ for all $n$.
+Then there exists a subsequence $(w^{(n_j)})$ and $w^* \in W$ with
+$\|w^{(n_j)} - w^*\|_W \to 0$.
+
+Hypotheses: the sequence is bounded in the widget norm.
+Conclusion: a norm-convergent subsequence exists.
+\end{solution}
+
+\begin{solution}[Q7]
+$w^{(n)}_k = (-1)^n$ if $k = 1$, and $w^{(n)}_k = 0$ for $k \ge 2$.
+
+Then $\|w^{(n)}\|_W = 1/2$ for all $n$ (bounded), but $w^{(n)}_1 = (-1)^n$
+does not converge. Taking the subsequence $n = 2j$ gives $w^{(2j)} \to w^*$
+with $w^*_1 = 1$, $w^*_k = 0$ for $k \ge 2$.
+\end{solution}
+
+\begin{solution}[Q8]
+$\sup_{k > K} |w_k| \cdot 2^{-k}$ is a supremum over a subset of
+$\{|w_k| \cdot 2^{-k} : k \ge 1\}$, so it is at most the full sup, which
+is $\|w\|_W \le M$. $\qed$
+\end{solution}
+
+\begin{solution}[Q9]
+$(\Rightarrow)$ Fix $k$. Then $|w^{(n)}_k - w_k| \cdot 2^{-k} \le
+\|w^{(n)} - w\|_W \to 0$. Since $2^{-k} > 0$:
+$|w^{(n)}_k - w_k| \le 2^k \|w^{(n)} - w\|_W \to 0$.
+
+Converse is false. Let $w^{(n)}_k = 2^k$ if $k = n$, and $0$ otherwise.
+Then $w^{(n)}_k \to 0$ for each fixed $k$. But
+$\|w^{(n)}\|_W = 2^n \cdot 2^{-n} = 1 \not\to 0$.
+\end{solution}
+
+\begin{solution}[Q10]
+We construct $w^*$ component by component.
+
+\textit{Step 1.} $(w^{(n)}_1)$ is bounded by $2M$. By Bolzano-Weierstrass,
+extract a subsequence $(w^{(n^1_j)})$ with $w^{(n^1_j)}_1 \to w^*_1$.
+
+\textit{Step 2.} From $(w^{(n^1_j)})$, extract a further subsequence
+$(w^{(n^2_j)})$ with $w^{(n^2_j)}_2 \to w^*_2$.
+
+\textit{Step 3.} Continue for all $k$. The diagonal subsequence
+$w^{(n^j_j)}$ converges in every component.
+
+\textit{Step 4.} Let $\eps > 0$. Choose $K$ with $M \cdot 2^{-K} < \eps/2$.
+For $j$ large enough:
+\[
+  \|w^{(n^j_j)} - w^*\|_W
+  \le \max\!\left(\max_{k \le K} |w^{(n^j_j)}_k - w^*_k| \cdot 2^{-k},\;
+       M \cdot 2^{-K}\right) < \eps. \qed
+\]
+\end{solution}
+
+
+\end{document}

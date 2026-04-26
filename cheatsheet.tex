@@ -1,0 +1,54 @@
+
+\documentclass[6pt, a4paper, landscape]{extarticle}
+\usepackage[left=0.15in, right=0.15in, top=0.05in, bottom=0.1in, headsep=0pt, footskip=0pt]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[compact]{titlesec}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5pt}
+\setlist{nosep, leftmargin=0.8em}
+\titlespacing*{\section}{0pt}{2pt}{1pt}
+\titlespacing*{\subsection}{0pt}{1.5pt}{0.5pt}
+\titleformat{\section}{\bfseries\small}{}{0pt}{}
+\titleformat{\subsection}{\bfseries\scriptsize}{}{0pt}{}
+\pagestyle{empty}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\pf}[1]{\textit{\tiny Pf: #1}}
+
+\begin{document}
+\vspace*{-18pt}
+\begin{multicols}{4}
+\raggedcolumns
+
+
+\section*{CH 1: Foundations}
+
+\subsection{Widget Norm}
+$\|w\|_W = \sup_{k \ge 1} |w_k| \cdot 2^{-k}$. Finite if $< \infty$.
+
+\subsection{Triangle Inequality}
+$\|u+v\|_W \le \|u\|_W + \|v\|_W$.\\
+\pf{Bound each $|u_k+v_k|2^{-k}$ by norms, take sup.}
+
+\subsection{Widget Approximation Thm}
+$(w^{(n)})$ bounded $\Rightarrow$ $\exists$ convergent subsequence.\\
+\pf{BW per component + diagonal + tail bound.}
+
+\subsection{Tail Bound}
+$\|w\|_W \le M \Rightarrow \sup_{k>K}|w_k|2^{-k} \le M$.\\
+\pf{Sup over subset $\le$ sup over full set.}
+
+
+\end{multicols}
+\end{document}

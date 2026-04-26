@@ -1,0 +1,89 @@
+
+\documentclass[9pt, a4paper]{article}
+\usepackage[margin=0.65in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+
+\tcbuselibrary{breakable}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep, leftmargin=1.5em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{{\small MATH 999 Compressed Notes}}
+\rhead{{\small Fall 2099}}
+\cfoot{\thepage}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\newtcolorbox{defbox}[1][]{colback=green!4, colframe=green!50!black,
+  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
+  left=3pt, right=3pt, top=2pt, bottom=2pt}
+\newtcolorbox{thmbox}[1][]{colback=blue!4, colframe=blue!50!black,
+  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
+  left=3pt, right=3pt, top=2pt, bottom=2pt}
+\newtcolorbox{exbox}[1][]{colback=orange!5, colframe=orange!50!black,
+  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
+  left=3pt, right=3pt, top=2pt, bottom=2pt}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\eps}{\varepsilon}
+
+\title{\textbf{MATH 999: Introduction to Widget Theory}\\[4pt]
+  {\Large Compressed Notes}}
+\author{{\small Exemplar University \quad Fall 2099}}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+
+\section{Foundations of Widget Theory}
+
+\begin{defbox}[Definition: Widget Norm]
+$\|w\|_W = \sup_{k \ge 1}|w_k| \cdot 2^{-k}$. Finite if $\|w\|_W < \infty$.
+\end{defbox}
+
+\begin{thmbox}[Theorem: Widget Approximation]
+Bounded sequence in $W$ has a norm-convergent subsequence.
+\end{thmbox}
+
+\begin{proof}[Proof sketch]
+Apply BW to each component, extracting nested subsequences. Diagonalize.
+Tail bound $\sup_{k>K}|w_k|2^{-k} \le M$ controls the remainder.
+\end{proof}
+
+\begin{exbox}[Example]
+$w^{(n)}_k = 1/(n+k)$: bounded by $M=1$, converges to $w^*=0$.
+\end{exbox}
+
+\begin{thmbox}[Lemma: Tail Bound]
+$\|w\|_W \le M \Rightarrow \sup_{k>K}|w_k| \cdot 2^{-k} \le M$.
+\end{thmbox}
+
+\begin{proof}[Proof sketch]
+Sup over a subset $\le$ sup over the full set.
+\end{proof}
+
+
+\end{document}
