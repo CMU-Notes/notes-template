@@ -72,7 +72,6 @@ These are strict. PRs that break them will be rejected.
 - Short direct sentences
 - Motivate every definition: one sentence on WHY before the formal statement
 - **No em dashes** (never use `---`)
-- **No meta-commentary**: "note that", "recall that", "it is important to", "it is worth mentioning"
 - **No filler**: "basically", "essentially", "in other words"
 - Every proof must be complete. No "left as an exercise."
 
