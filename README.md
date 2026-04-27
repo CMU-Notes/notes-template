@@ -158,7 +158,7 @@ All notes in this organization follow these conventions:
 - After each proof: "We showed that ..." (one sentence)
 - Short direct sentences. No filler.
 - Motivate every definition before stating it
-- No em dashes. No "note that", "recall that", "basically", "essentially".
+- No em dashes. No "basically", "essentially".
 - `\[...\]` for display math, never `$$...$$`
 - `align*` for multi-line equations
 - Plain text inside box titles (no `$math$` in `\begin{thmbox}[title]`)
