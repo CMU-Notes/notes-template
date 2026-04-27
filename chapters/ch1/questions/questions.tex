@@ -8,7 +8,7 @@
 \usepackage{microtype}
 \usepackage{hyperref}
 \usepackage{xcolor}
-\usepackage{tcolorbox}
+\usepackage[most,skins,breakable]{tcolorbox}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{float}
@@ -20,7 +20,6 @@
 \usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric,
   decorations.pathmorphing, patterns, automata, trees, fit, backgrounds, matrix}
 
-\tcbuselibrary{breakable}
 \hypersetup{colorlinks=true, linkcolor=blue!60!black}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{3pt}
@@ -32,18 +31,43 @@
 \rhead{{\small Fall 2099}}
 \cfoot{\thepage}
 
-\newtcolorbox{qeasy}[1][]{colback=green!5, colframe=green!50!black,
-  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
-  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
-\newtcolorbox{qmedium}[1][]{colback=yellow!8, colframe=orange!70!black,
-  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
-  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
-\newtcolorbox{qhard}[1][]{colback=red!4, colframe=red!50!black,
-  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
-  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
-\newtcolorbox{solution}[1][]{colback=gray!4, colframe=gray!60!black,
-  fonttitle=\bfseries, title={#1}, boxrule=0.4pt, arc=2pt, breakable,
-  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt}
+\definecolor{easygreen}{HTML}{1E8449}
+\definecolor{easygreenbg}{HTML}{D5F5E3}
+\definecolor{medorange}{HTML}{B9770E}
+\definecolor{medorangebg}{HTML}{FDEBD0}
+\definecolor{hardred}{HTML}{922B21}
+\definecolor{hardredbg}{HTML}{FADBD8}
+\definecolor{solgray}{HTML}{2C3E50}
+\definecolor{solgraybg}{HTML}{EAECEE}
+
+\newtcolorbox{qeasy}[1][]{%
+  enhanced, breakable,
+  colback=easygreenbg, colframe=easygreen, coltitle=white,
+  fonttitle=\bfseries, title={#1},
+  arc=1.5mm, boxrule=0.8pt,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  drop shadow southeast}
+\newtcolorbox{qmedium}[1][]{%
+  enhanced, breakable,
+  colback=medorangebg, colframe=medorange, coltitle=white,
+  fonttitle=\bfseries, title={#1},
+  arc=1.5mm, boxrule=0.8pt,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  drop shadow southeast}
+\newtcolorbox{qhard}[1][]{%
+  enhanced, breakable,
+  colback=hardredbg, colframe=hardred, coltitle=white,
+  fonttitle=\bfseries, title={#1},
+  arc=1.5mm, boxrule=0.8pt,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  drop shadow southeast}
+\newtcolorbox{solution}[1][]{%
+  enhanced, breakable,
+  colback=solgraybg, colframe=solgray, coltitle=white,
+  fonttitle=\bfseries, title={#1},
+  arc=1.5mm, boxrule=0.8pt,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  drop shadow southeast}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
