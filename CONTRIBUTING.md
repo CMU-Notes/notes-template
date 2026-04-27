@@ -49,15 +49,20 @@ These are strict. PRs that break them will be rejected.
 - One `.tex` file per chapter for notes, one for questions
 - Follow the folder layout: `chapters/chN/notes/notes.tex` and `chapters/chN/questions/questions.tex`
 - Always compile and verify before submitting. Zero LaTeX errors.
+- **Run the format checker before every PR:** `python3 check_formatting.py . --fix`
+- The checker must pass with 0 failures. PRs with formatting failures will be rejected.
 
 ### Formatting
 
 - Use the colored boxes defined in the template. Do not invent new ones without discussion.
+- All boxes must use `enhanced jigsaw, breakable` with `drop shadow southeast` and `pad at break*=2mm`. Do not use flat boxes.
 - `\[...\]` for display math. Never `$$...$$`.
 - `align*` for multi-line equations.
 - **No `$` inside tcolorbox titles.** Plain text only.
 - `booktabs` for tables (`\toprule`, `\midrule`, `\bottomrule`). No vertical rules.
 - Automatic theorem numbering. Never hardcode numbers.
+- Every file must have page headers (`\pagestyle{fancy}`, `\lhead`, `\rhead`, `\cfoot`).
+- The preamble must be identical across all chapters (except `\title`, `\author`, `\date`, `\lhead`, `\rhead`).
 
 ### Writing
 

@@ -10,6 +10,7 @@ A clean, structured LaTeX template for university course notes and practice prob
 | `chapters/ch1/questions/questions.tex` | 50+ practice problems per chapter with full solutions |
 | `compressed_notes.tex` | Condensed version of all notes (proof sketches, one example per theorem) |
 | `cheatsheet.tex` | 2-3 page landscape cheatsheet with every definition and theorem |
+| `check_formatting.py` | Deterministic format checker and auto-fixer |
 
 ## Quick Start
 
@@ -23,36 +24,44 @@ cp -r chapters/ch1 chapters/ch2
 cp -r chapters/ch1 chapters/ch3
 
 # Edit the .tex files, replacing the example content with your course material
-# Compile
+# Compile (run twice for TOC)
 cd chapters/ch1/notes && pdflatex notes.tex && pdflatex notes.tex
+
+# Check formatting across all chapters
+cd ../../.. && python3 check_formatting.py . --fix
 ```
 
 ## Template Design
 
 ### Notes (`notes.tex`)
 
-Each chapter's notes use color-coded boxes for different content types:
+Each chapter's notes use color-coded boxes with drop shadows for different content types:
 
 | Box | Color | Use |
 |-----|-------|-----|
-| `\begin{defbox}[title]` | 🟢 Green | Definitions |
-| `\begin{thmbox}[title]` | 🔵 Blue | Theorems, lemmas, corollaries |
-| `\begin{exbox}[title]` | 🟠 Orange | Worked examples |
-| `\begin{whybox}[title]` | 🟣 Purple | Intuition after a proof |
-| `\begin{sumbox}[title]` | 🟡 Yellow | Section summary |
+| `\begin{defbox}[title]` | 🔵 Blue | Definitions |
+| `\begin{thmbox}[title]` | 🔴 Red | Theorems, lemmas, corollaries |
+| `\begin{exbox}[title]` | 🟢 Green | Worked examples |
+| `\begin{whybox}[title]` | 🟠 Orange | Intuition after a proof |
+| `\begin{sumbox}[title]` | 🟣 Purple | Section summary |
 | `\begin{codebox}[title]` | ⬜ Gray | Code (use `\begin{verbatim}` inside) |
 | `\begin{algobox}[title]` | 🟦 Teal | Pseudocode / algorithms |
+
+All boxes use `enhanced jigsaw, breakable` with `drop shadow southeast` and `pad at break*=2mm`. This means:
+- Boxes have depth/shadow (not flat)
+- Large boxes can break across pages cleanly (borders preserved on both halves)
+- Small boxes that break awkwardly can be fixed with `\needspace{5cm}` before the box
 
 Inline notes use `\note{text}` which renders as smaller italic text below the content.
 
 **Structure of each section:**
 1. One sentence motivating why the topic matters
-2. Definition in a green box
-3. Theorem in a blue box
+2. Definition in a blue box
+3. Theorem in a red box
 4. Full proof
-5. Intuition in a purple box (2-3 sentences: what is the core idea?)
-6. Worked example in an orange box
-7. Summary in a yellow box at the end of the section
+5. Intuition in an orange box (2-3 sentences: what is the core idea?)
+6. Worked example in a green box
+7. Summary in a purple box at the end of the section
 
 ### Questions (`questions.tex`)
 
@@ -82,32 +91,44 @@ The title is just "Q1", "Q2", etc. No other labels. The color communicates the d
 - Proof sketches instead of full proofs
 - One example per major theorem
 
+## Format Checker
+
+`check_formatting.py` checks and auto-fixes formatting across all chapters:
+
+```bash
+# Check only (report issues)
+python3 check_formatting.py .
+
+# Check and auto-fix
+python3 check_formatting.py . --fix
+
+# Compare against a template repo
+python3 check_formatting.py . --template /path/to/notes-template
+
+# Also analyze PDFs for visual issues (cut boxes, overlapping text, blank pages)
+python3 check_formatting.py . --fix --visual
+```
+
+**What it checks:**
+- Preamble identity across all chapters (must match template exactly)
+- Document class consistency
+- Required elements: `\maketitle`, `\tableofcontents`, `\newpage`, headers (`\lhead`, `\rhead`, `\cfoot`)
+- Forbidden patterns: `$$...$$`, `$` in box titles, `\textwidth` tables without `tabularx`
+- Notation consistency: raw `\mathbb{R}` vs `\R` macros
+- Box styling: `enhanced jigsaw`, `drop shadow`, hex colors (not `green!4`)
+- Hyperref consistency across files
+- PDF analysis: cut boxes, overlapping text, blank pages, margin overflow
+
 ## Visual Tools
 
 All templates come with these packages loaded and ready to use:
 
 **Figures:** `graphicx`, `subcaption`, `float`
 ```latex
-% Single figure
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{image.pdf}
   \caption{Description.}\label{fig:name}
-\end{figure}
-
-% Two figures side by side
-\begin{figure}[H]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{left.pdf}
-    \caption{Left.}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{right.pdf}
-    \caption{Right.}
-  \end{subfigure}
-  \caption{Both.}
 \end{figure}
 ```
 
@@ -141,6 +162,19 @@ All notes in this organization follow these conventions:
 - `\[...\]` for display math, never `$$...$$`
 - `align*` for multi-line equations
 - Plain text inside box titles (no `$math$` in `\begin{thmbox}[title]`)
+
+## Page Headers
+
+Every file must have page headers set up in the preamble:
+
+```latex
+\pagestyle{fancy}
+\lhead{{\small COURSE-CODE \quad Chapter N: Title}}
+\rhead{{\small Fall 2025}}
+\cfoot{\thepage}
+```
+
+The format checker will auto-inject these from `\title` and `\author` if missing.
 
 ## LaTeX Requirements
 
