@@ -20,7 +20,7 @@
 \usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric,
   decorations.pathmorphing, patterns, automata, trees, fit, backgrounds, matrix}
 
-\hypersetup{colorlinks=true, linkcolor=blue!60!black}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!70!black}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{3pt}
 \setlist{nosep, leftmargin=1.5em}
@@ -41,32 +41,36 @@
 \definecolor{solgraybg}{HTML}{EAECEE}
 
 \newtcolorbox{qeasy}[1][]{%
-  enhanced, breakable,
+  enhanced jigsaw, breakable,
   colback=easygreenbg, colframe=easygreen, coltitle=white,
   fonttitle=\bfseries, title={#1},
   arc=1.5mm, boxrule=0.8pt,
   left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  pad at break*=2mm,
   drop shadow southeast}
 \newtcolorbox{qmedium}[1][]{%
-  enhanced, breakable,
+  enhanced jigsaw, breakable,
   colback=medorangebg, colframe=medorange, coltitle=white,
   fonttitle=\bfseries, title={#1},
   arc=1.5mm, boxrule=0.8pt,
   left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  pad at break*=2mm,
   drop shadow southeast}
 \newtcolorbox{qhard}[1][]{%
-  enhanced, breakable,
+  enhanced jigsaw, breakable,
   colback=hardredbg, colframe=hardred, coltitle=white,
   fonttitle=\bfseries, title={#1},
   arc=1.5mm, boxrule=0.8pt,
   left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  pad at break*=2mm,
   drop shadow southeast}
 \newtcolorbox{solution}[1][]{%
-  enhanced, breakable,
+  enhanced jigsaw, breakable,
   colback=solgraybg, colframe=solgray, coltitle=white,
   fonttitle=\bfseries, title={#1},
   arc=1.5mm, boxrule=0.8pt,
   left=4pt, right=4pt, top=3pt, bottom=3pt, after skip=8pt,
+  pad at break*=2mm,
   drop shadow southeast}
 
 \newcommand{\R}{\mathbb{R}}
