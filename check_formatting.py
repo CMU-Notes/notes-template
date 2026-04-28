@@ -632,6 +632,24 @@ def check_forbidden_patterns(notes_files, question_files, do_fix, result):
         else:
             print(f"  OK: {f}")
 
+    # Check that every figure and table has \caption and \label
+    for f in all_files:
+        content = read_file(f)
+        # Find all \begin{figure} blocks
+        for env, label_prefix in [('figure', 'fig:'), ('table', 'tab:')]:
+            starts = [m.start() for m in re.finditer(r'\\begin\{' + env + r'\}', content)]
+            for s in starts:
+                # Find matching \end{env}
+                end = content.find(f'\\end{{{env}}}', s)
+                if end == -1:
+                    continue
+                block = content[s:end]
+                line_num = content[:s].count('\n') + 1
+                if '\\caption' not in block:
+                    result.fail(f"{f} line {line_num}: {env} without \\caption")
+                if f'\\label{{{label_prefix}' not in block and '\\label{' not in block:
+                    result.warn(f"{f} line {line_num}: {env} without \\label{{{label_prefix}...}}")
+
     # Check for excessive \newpage usage
     for f in all_files:
         content = read_file(f)
