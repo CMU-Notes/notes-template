@@ -346,6 +346,15 @@ def check_required_elements(notes_files, question_files, do_fix, result):
             else:
                 result.fail(f"Missing maketitle: {f}")
 
+        # Check for \thispagestyle{fancy} after \maketitle (forces headers on page 1)
+        if '\\maketitle' in content and '\\thispagestyle{fancy}' not in content:
+            if do_fix:
+                content = content.replace('\\maketitle', '\\maketitle\n\\thispagestyle{fancy}')
+                modified = True
+                result.fix(f"Added \\thispagestyle{{fancy}} after \\maketitle: {f}")
+            else:
+                result.fail(f"Missing \\thispagestyle{{fancy}} after \\maketitle (headers won't show on page 1): {f}")
+
         # Check for \tableofcontents (notes must have it)
         if '\\tableofcontents' not in content:
             if do_fix and '\\maketitle' in content:
@@ -506,6 +515,13 @@ def check_required_elements(notes_files, question_files, do_fix, result):
                 modified = True
             else:
                 result.fail(f"Missing maketitle in questions: {f}")
+
+        # Check for \thispagestyle{fancy} after \maketitle
+        if '\\maketitle' in content and '\\thispagestyle{fancy}' not in content:
+            if do_fix:
+                content = content.replace('\\maketitle', '\\maketitle\n\\thispagestyle{fancy}')
+                modified = True
+                result.fix(f"Added \\thispagestyle{{fancy}} after \\maketitle in questions: {f}")
 
         # Questions must have headers — auto-fix by deriving from \title and path
         q_header_block = []
