@@ -632,6 +632,65 @@ def check_forbidden_patterns(notes_files, question_files, do_fix, result):
         else:
             print(f"  OK: {f}")
 
+    # Check for excessive \newpage usage
+    for f in all_files:
+        content = read_file(f)
+        body_start = content.find('\\begin{document}')
+        if body_start == -1:
+            continue
+        body = content[body_start:]
+
+        # Count newpage/clearpage/pagebreak in the body
+        newpages = [(m.start(), m.group()) for m in re.finditer(r'\\(newpage|clearpage|pagebreak)', body)]
+
+        # Allowed: 1 after \tableofcontents, 1 before Part II in questions
+        allowed = 0
+        if '\\tableofcontents' in body:
+            allowed += 1
+        if 'questions' in f:
+            allowed += 2  # one after maketitle, one between Part I and Part II
+
+        if len(newpages) > allowed:
+            excess = len(newpages) - allowed
+            if do_fix:
+                # Remove newpages that are NOT right after \tableofcontents
+                # and NOT before "Part II" or "\part"
+                lines = content.split('\n')
+                removed = 0
+                new_lines = []
+                skip_next_empty = False
+                for i, line in enumerate(lines):
+                    stripped = line.strip()
+                    if stripped in ('\\newpage', '\\clearpage', '\\pagebreak'):
+                        # Check if this is after TOC
+                        prev_content = '\n'.join(new_lines[-3:]) if len(new_lines) >= 3 else ''
+                        # Check if next non-empty line is Part II or section
+                        next_lines = [l.strip() for l in lines[i+1:i+4] if l.strip()]
+                        next_content = next_lines[0] if next_lines else ''
+
+                        is_after_toc = '\\tableofcontents' in prev_content
+                        is_after_maketitle = '\\maketitle' in prev_content or '\\thispagestyle' in prev_content
+                        is_before_part2 = 'Part II' in next_content or '\\part' in next_content
+
+                        if is_after_toc or is_after_maketitle or is_before_part2:
+                            new_lines.append(line)  # keep it
+                        else:
+                            removed += 1  # skip it
+                            skip_next_empty = True
+                            continue
+                    elif skip_next_empty and stripped == '':
+                        skip_next_empty = False
+                        continue  # remove blank line after removed newpage
+                    else:
+                        skip_next_empty = False
+                    new_lines.append(line)
+
+                if removed > 0:
+                    write_file(f, '\n'.join(new_lines))
+                    result.fix(f"Removed {removed} unnecessary \\newpage commands: {f}")
+            else:
+                result.warn(f"{f}: has {len(newpages)} newpage/clearpage commands (expected max {allowed}) — likely wasting space")
+
 
 def check_notation(notes_files, question_files, do_fix, result):
     """Check for raw macros that should use shortcuts."""
