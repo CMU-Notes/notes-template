@@ -650,6 +650,24 @@ def check_forbidden_patterns(notes_files, question_files, do_fix, result):
                 if f'\\label{{{label_prefix}' not in block and '\\label{' not in block:
                     result.warn(f"{f} line {line_num}: {env} without \\label{{{label_prefix}...}}")
 
+    # Check for bare tikzpicture / axis not inside a figure environment
+    for f in all_files:
+        content = read_file(f)
+        lines = content.split('\n')
+        in_figure = 0
+        for i, line in enumerate(lines, 1):
+            stripped = line.strip()
+            if stripped.startswith('%'):
+                continue
+            if '\\begin{figure}' in line:
+                in_figure += 1
+            if '\\end{figure}' in line:
+                in_figure = max(0, in_figure - 1)
+            if in_figure == 0 and '\\begin{tikzpicture}' in line:
+                result.fail(f"{f} line {i}: bare \\begin{{tikzpicture}} without \\begin{{figure}}[H] wrapper")
+            if in_figure == 0 and '\\begin{axis}' in line:
+                result.fail(f"{f} line {i}: bare \\begin{{axis}} without \\begin{{figure}}[H] wrapper")
+
     # Check for excessive \newpage usage
     for f in all_files:
         content = read_file(f)

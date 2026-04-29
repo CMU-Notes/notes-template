@@ -207,7 +207,8 @@ Let $w = (3, 1, 4, 1, 5, 9, \ldots)$ where $w_k$ is the $k$-th digit of $\pi$.
 Here is a plot of the decay $2^{-k}$ showing why later components
 are negligible:
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
   \begin{axis}[
     width=0.65\textwidth, height=5cm,
@@ -223,7 +224,8 @@ are negligible:
   \addplot[blue, dashed, domain=1:8, samples=50]{2^(-x)};
   \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{Decay of $2^{-k}$: later components are negligible.}\label{fig:decay}
+\end{figure}
 
 
 \begin{figure}[H]
@@ -316,7 +318,8 @@ meaning we only need finitely many components to be close.
 The diagonal argument can be visualized as a table where we select
 entries along the diagonal:
 
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}[
   cell/.style={minimum size=7mm, draw, thin, font=\small},
   highlight/.style={cell, fill=blue!15, font=\small\bfseries},
@@ -347,7 +350,8 @@ entries along the diagonal:
   \draw[-{Stealth}, thick, blue!60!black]
     (0.5, 2.1) -- (1.1, 1.5) -- (1.9, 1.1) -- (2.5, 0.5);
 \end{tikzpicture}
-\end{center}
+\caption{Diagonal argument: entries along the diagonal form the limit.}\label{fig:diagonal}
+\end{figure}
 
 
 \section{A Useful Lemma}
